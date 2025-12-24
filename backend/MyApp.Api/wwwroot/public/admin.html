@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LIMS – Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/admin.css">
+</head>
+
+<body>
+
+<header class="mainHeader">
+    <nav>
+        <ul class="topNav">
+            <li>
+                <a href="https://localhost:7172/public/admin.html">
+                    Admin Panel
+                </a>
+            </li>
+            <li><a href="/public/dashboard.html">DMS Dashboard</a></li>
+            <li><a href="/public/statistics.html">Statistics</a></li>
+            <li>
+                <a href="http://127.0.0.1:5501/microservice/logs.html" target="_blank">
+                    Logs
+                </a>
+            </li>
+            <li><a href="#" id="logoutBtn">Logout</a></li>
+        </ul>
+    </nav>
+    <h1>Admin Dashboard</h1>
+</header>
+
+<div class="main-wrapper">
+
+    <aside class="sidebar">
+        <img src="/public/assets/icons/logo.png" width="150">
+        <ul class="menu">
+            <li onclick="loadPage('dashboard')">Dashboard</li>
+            <li onclick="loadPage('categories')">Categories</li>
+            <li onclick="loadPage('tests')">Tests</li>
+            <li onclick="loadPage('parameters')">Test Parameters</li>
+            <li onclick="loadPage('specs')">Material Specifications</li>
+            <li onclick="loadPage('plans')">Test Plans</li>
+            <li onclick="loadPage('results')">Test Results</li>
+            <li onclick="loadPage('trash')">Crash Bin</li>
+        </ul>
+    </aside>
+
+    <main class="content">
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="page">
+            <div class="statsGrid">
+                <div class="statBox">Categories <span id="statCat">0</span></div>
+                <div class="statBox">Tests <span id="statTest">0</span></div>
+                <div class="statBox">Parameters <span id="statPar">0</span></div>
+                <div class="statBox">Specifications <span id="statSpec">0</span></div>
+                <div class="statBox">Plans <span id="statPlan">0</span></div>
+                <div class="statBox">Results <span id="statRes">0</span></div>
+            </div>
+        </section>
+
+        <!-- CATEGORIES -->
+        <section id="categories" class="page" hidden>
+            <h2>Categories</h2>
+            <input id="catName" placeholder="Category name">
+            <button onclick="addCategory()">Add</button>
+            <table id="categoryTable" class="dataTable"></table>
+        </section>
+
+        <!-- TESTS -->
+        <section id="tests" class="page" hidden>
+            <h2>Tests</h2>
+            <select id="testCategory"></select>
+            <input id="testName" placeholder="Test name">
+            <button onclick="addTest()">Add</button>
+            <table id="testTable" class="dataTable"></table>
+        </section>
+
+        <!-- PARAMETERS -->
+        <section id="parameters" class="page" hidden>
+            <h2>Test Parameters</h2>
+            <select id="paramTest"></select>
+            <input id="paramUnit" placeholder="Unit">
+            <input id="paramMin" placeholder="Min">
+            <input id="paramMax" placeholder="Max">
+            <button onclick="addParameter()">Add</button>
+            <table id="paramTable" class="dataTable"></table>
+        </section>
+
+        <!-- SPECS -->
+        <section id="specs" class="page" hidden>
+            <h2>Material Specifications</h2>
+            <input id="specMaterial" placeholder="Material">
+            <select id="specTest"></select>
+            <input id="specMin" placeholder="Min">
+            <input id="specMax" placeholder="Max">
+            <button onclick="addSpec()">Add</button>
+            <table id="specTable" class="dataTable"></table>
+        </section>
+
+        <!-- PLANS -->
+        <section id="plans" class="page" hidden>
+            <h2>Test Plans</h2>
+            <select id="planCategory"></select>
+            <input type="date" id="planDate">
+            <input type="time" id="planTime">
+            <input id="planLimit" placeholder="Limit">
+            <button onclick="addPlan()">Add</button>
+            <table id="planTable" class="dataTable"></table>
+        </section>
+
+        <!-- RESULTS -->
+        <section id="results" class="page" hidden>
+            <h2>Test Results</h2>
+            <select id="resTest"></select>
+            <input id="resValue" placeholder="Result">
+            <button onclick="addResult()">Add</button>
+            <table id="resultTable" class="dataTable"></table>
+        </section>
+
+        <!-- TRASH -->
+        <section id="trash" class="page" hidden>
+            <h2>Crash Bin</h2>
+            <table id="trashTable" class="dataTable"></table>
+        </section>
+
+    </main>
+</div>
+
+<script src="/public/js/admin.js"></script>
+</body>
+</html>
