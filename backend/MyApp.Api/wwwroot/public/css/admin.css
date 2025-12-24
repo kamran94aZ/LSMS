@@ -1,0 +1,213 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f6fa;
+}
+
+header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  text-align: center;
+  padding: 30px 0;
+  background: #000613;
+  backdrop-filter: blur(6px);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+header nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 35px;
+}
+
+header nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 17px;
+  position: relative;
+  transition: 0.3s;
+}
+
+header nav ul li a:hover {
+  color: #ffeb3b;
+}
+
+header nav ul li a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  left: 0;
+  bottom: -5px;
+  background: #ffeb3b;
+  transition: 0.3s;
+}
+
+header nav ul li a:hover::after {
+  width: 100%;
+}
+header h1 {
+    padding: 18px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    color: #fff;
+}
+
+.main-wrapper {
+    display: flex;
+    margin-top: 220px;
+}
+
+.sidebar {
+    width: 240px;
+    background: #000610;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    top: 180px;
+    left: 0;
+    height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.menu li {
+    list-style: none;
+    padding: 12px;
+    margin: 6px 0;
+    background: #2d3442;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.menu li:hover {
+    background: #3d4556;
+}
+
+.content {
+    flex: 1;
+    padding: 30px;
+    margin-left: 260px;
+    padding-top: 20px;
+}
+
+
+
+.formBox {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input, select {
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px 16px;
+    background: #34495e;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #2c3e50;
+}
+
+.dataTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.dataTable th, .dataTable td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.statBox {
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.chartPlaceholder {
+    margin-top: 30px;
+    padding: 40px;
+    background: white;
+    border-radius: 10px;
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 20px;
+    border: 2px dashed #bbb;
+}
+
+.actionBtn {
+    padding: 6px 10px;
+    border: none;
+    margin-right: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.editBtn {
+    background: #3498db;
+    color: white;
+}
+
+.deleteBtn {
+    background: #e74c3c;
+    color: white;
+}
+
+.saveBtn {
+    background: #2ecc71;
+    color: white;
+}
+
+.cancelBtn {
+    background: #95a5a6;
+    color: white;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #000613;
+    border-radius: 10px;
+}
+
