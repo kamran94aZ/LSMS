@@ -34,14 +34,14 @@ builder.Services.AddSingleton<IPasswordHasher, Pbkdf2PasswordHasher>();
 // ===============================
 builder.Services.AddScoped<IAdminAuthService, AdminAuthService>();
 builder.Services.AddScoped<ITestService, TestService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>(); // ✅ ADD
+builder.Services.AddScoped<ICategoryService, CategoryService>(); 
 
 // ===============================
 // REPOSITORIES
 // ===============================
 builder.Services.AddScoped<IAdminUserRepository, AdminUserRepository>();
 builder.Services.AddScoped<ITestRepository, TestRepository>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); // ✅ ADD
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); 
 
 // ===============================
 // DB CONTEXT
@@ -148,4 +148,5 @@ public sealed class Pbkdf2PasswordHasher : IPasswordHasher
         return CryptographicOperations.FixedTimeEquals(expected, actual);
     }
 }
+
 
