@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/microservice/log.css">
+    <title>Logs</title>
+</head>
+<body>
+    <header>
+        <img src="/microservice/logo.png" width="150" alt="logo">
+        <nav>
+            <a href="https://localhost:7172/public/admin.html">Home</a>
+            <a href="http://127.0.0.1:5501/microservice/logs.html">Logs</a>
+            <a href="/microservice/dashboard.html">DMS Dashboard</a>
+        </nav>
+    </header>
+    <main>
+        <h1>Logs System</h1>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search by user, action and test">
+            <button id="searchBtn">Search</button>
+        </div>
+
+        <table class="logs-table">
+            <thead>
+                <tr>
+                    <th>LID</th>
+                    <th>Username</th>
+                    <th>Action</th>
+                    <th>Entity</th>
+                    <th>Details</th>
+                    <th>CreatedAt</th>
+                </tr>
+            </thead>
+            <tbody id="LogTableBody"></tbody>
+        </table>
+        <script src="/microservice/log.js"></script>
+    </main>
+
+    <footer>
+        <p>Copyright&copy:2025 Eagle Company LLC</p>
+    </footer>
+    
+</body>
+</html>
