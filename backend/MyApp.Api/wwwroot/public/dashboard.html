@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enterprise Document System</title>
+<link rel="stylesheet" href="/microservice/dashboard.css">
+</head>
+<body>
+    <header>
+        <img src="/public/assets/icons/logo.png" width="150" alt="logo">
+        <nav>
+            <ul>
+                <a href="https://localhost:7172/public/admin.html">Admin Panel</a>
+                <a href="http://127.0.0.1:5501/microservice/dashboard.html">DMS Dashboard</a>
+                <a href="/public/laboratory.html">LAB</a>
+                <a href="http://127.0.0.1:5501/microservice/logs.html">Logs</a>
+            </ul>
+        </nav>
+        <h1>Document Dashboard</h1>
+    </header>
+
+<div class="sidebar">
+    <button id="addDocumentBtn">Add Document</button>
+    <button id="createDocumentBtn">Create Document</button>
+</div>
+
+<div class="content">
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tbody id="documentTable"></tbody>
+    </table>
+</div>
+
+<div class="modal" id="fileModal">
+    <div class="modal-box">
+        <h2>Add Document</h2>
+        <input type="file" id="fileInput">
+        <input type="text" id="fileTitle" placeholder="Enter document title">
+        <button id="uploadFileBtn">Upload</button>
+        <button class="closeModal">Close</button>
+    </div>
+</div>
+
+<div class="modal" id="createModal">
+    <div class="modal-box">
+        <h2>Create Document</h2>
+
+        <div id="step1">
+            <p>Select document type</p>
+            <select id="docFormat">
+                <option value="PDF">PDF</option>
+                <option value="WORD">Word</option>
+                <option value="EXCEL">Excel</option>
+            </select>
+
+            <p>Choose creation style</p>
+            <select id="docStyle">
+                <option value="similar">Similar to existing</option>
+                <option value="individual">Individual (Survey Required)</option>
+            </select>
+
+            <button id="nextToSurvey">Next</button>
+            <button class="closeModal">Close</button>
+        </div>
+
+        <div id="surveySection" class="hidden">
+            <h3>15-Question Compliance Survey</h3>
+            <div id="surveyQuestions"></div>
+            <button id="submitSurvey">Submit Survey</button>
+        </div>
+
+        <div id="loadingSection" class="hidden">
+            <div class="loader"></div>
+            <p>Document is being processed...</p>
+        </div>
+    </div>
+</div>
+
+<script src="/microservice/dashboard.js"></script>
+</body>
+</html>
