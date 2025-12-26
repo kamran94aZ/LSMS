@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Operator Panel</title>
+</head>
+<body>
+
+<h2>Operator Access</h2>
+
+<div id="loginBox">
+  <input type="password" id="pass" placeholder="Operator password">
+  <button onclick="login()">Login</button>
+</div>
+
+<hr>
+
+<div id="panel" style="display:none;">
+  <h3>User Information</h3>
+
+  <p><b>Full Name:</b> <span id="n"></span></p>
+  <p><b>Email:</b> <span id="e"></span></p>
+  <p><b>Phone:</b> <span id="p"></span></p>
+
+  <br>
+
+ 
+  <button onclick="exportJSON()">Export user.json</button>
+</div>
+
+<script>
+function login() {
+  const OPERATOR_PASSWORD = "AfZh1HOperAtorKaM@ra@n!#@1994";
+
+  const inputPass = document.getElementById("pass").value;
+
+  if (inputPass !== OPERATOR_PASSWORD) {
+    alert("Access denied");
+    return;
+  }
+
+  const fullname = localStorage.getItem("fullname");
+  const email = localStorage.getItem("email");
+  const phone = localStorage.getItem("phone");
+
+  if (!fullname || !email || !phone) {
+    alert("No user data found");
+    return;
+  }
+
+  document.getElementById("loginBox").style.display = "none";
+  document.getElementById("panel").style.display = "block";
+
+  document.getElementById("n").textContent = fullname;
+  document.getElementById("e").textContent = email;
+  document.getElementById("p").textContent = phone;
+}
+
+function exportJSON() {
+  const userData = {
+    fullname: localStorage.getItem("fullname"),
+    email: localStorage.getItem("email"),
+    phone: localStorage.getItem("phone"),
+    createdAt: new Date().toISOString()
+  };
+
+  const blob = new Blob(
+    [JSON.stringify(userData, null, 2)],
+    { type: "application/json" }
+  );
+
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "user.json";
+  document.body.appendChild(a); 
+  a.click();
+  document.body.removeChild(a);
+
+  URL.revokeObjectURL(url);
+}
+</script>
+
+</body>
+</html>
