@@ -1,0 +1,23 @@
+{
+  "name": "MAKT",
+  "description": "Material Descriptions",
+  "primaryKey": ["MATNR", "SPRAS"],
+  "fields": {
+    "MATNR": {
+      "element": "MATNR",
+      "type": "CHAR",
+      "length": 18,
+      "notNull": true
+    },
+    "SPRAS": {
+      "element": "SPRAS",
+      "type": "LANG",
+      "length": 1
+    },
+    "MAKTX": {
+      "element": "MAKTX",
+      "type": "CHAR",
+      "length": 40
+    }
+  }
+}
