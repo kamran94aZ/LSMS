@@ -1,0 +1,23 @@
+{
+  "name": "MARA",
+  "description": "Material Master: General Data",
+  "primaryKey": ["MATNR"],
+  "fields": {
+    "MATNR": {
+      "element": "MATNR",
+      "type": "CHAR",
+      "length": 18,
+      "notNull": true
+    },
+    "MTART": {
+      "element": "MTART",
+      "type": "CHAR",
+      "length": 4
+    },
+    "MBRSH": {
+      "element": "MBRSH",
+      "type": "CHAR",
+      "length": 1
+    }
+  }
+}
