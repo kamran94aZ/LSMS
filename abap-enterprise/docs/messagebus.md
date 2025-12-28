@@ -114,10 +114,4 @@ It provides the foundation for system interaction.
 
 ---
 
-## Next Step
 
-With communication in place:
-
-- system parts stay informed
-- coordination becomes easier
-- new components can join safely
