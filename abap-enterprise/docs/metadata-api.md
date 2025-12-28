@@ -112,9 +112,4 @@ but it gives meaning to the logic.
 
 ---
 
-## Next Step
 
-Each file in this system has a purpose.
-
-When the next file is ready,
-it can be explained the same way.
