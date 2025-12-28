@@ -1,0 +1,18 @@
+{
+  "nodeId": "NODE_1",
+
+  "enabled": true,
+
+  "discovery": {
+    "enabled": true,
+    "port": 5000
+  },
+
+  "workProcesses": {
+    "max": 5
+  },
+
+  "replication": {
+    "transactions": true
+  }
+}
