@@ -104,7 +104,6 @@ but it protects the system.
 
 ---
 
-## Next Step
 
 With clustering in place,
 the system becomes scalable.
