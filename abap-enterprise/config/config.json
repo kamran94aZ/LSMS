@@ -1,0 +1,18 @@
+{
+  "system": {
+    "name": "ABAP_ENTERPRISE",
+    "environment": "DEV",
+    "logLevel": "debug"
+  },
+
+  "server": {
+    "port": 3000,
+    "host": "0.0.0.0"
+  },
+
+  "features": {
+    "debugger": true,
+    "cluster": true,
+    "cts": true
+  }
+}
