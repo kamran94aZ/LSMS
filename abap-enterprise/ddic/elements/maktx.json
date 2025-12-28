@@ -1,0 +1,8 @@
+{
+  "name": "MAKTX",
+  "domain": "CHAR40",
+  "shortText": "Description",
+  "mediumText": "Material Description",
+  "longText": "Material Description Text",
+  "documentation": "Language-dependent material description"
+}
