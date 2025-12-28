@@ -1,0 +1,8 @@
+{
+  "name": "MTART",
+  "description": "Material Type",
+  "baseType": "CHAR",
+  "length": 4,
+  "lowercase": false,
+  "valueRange": ["FERT", "HALB", "ROH"]
+}
