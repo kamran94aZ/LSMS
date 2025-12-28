@@ -1,0 +1,8 @@
+{
+  "name": "MATNR",
+  "description": "Material Number",
+  "baseType": "CHAR",
+  "length": 18,
+  "lowercase": false,
+  "valueRange": null
+}
