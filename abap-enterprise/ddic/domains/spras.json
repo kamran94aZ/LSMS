@@ -1,0 +1,8 @@
+{
+  "name": "SPRAS",
+  "description": "Language Key",
+  "baseType": "CHAR",
+  "length": 1,
+  "lowercase": false,
+  "valueRange": ["E", "D", "T", "F"]
+}
