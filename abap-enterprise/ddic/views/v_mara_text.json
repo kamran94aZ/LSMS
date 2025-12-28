@@ -1,0 +1,18 @@
+{
+  "name": "V_MARA_TEXT",
+  "description": "Material with description",
+  "baseTable": "MARA",
+  "joins": [
+    {
+      "type": "INNER",
+      "table": "MAKT",
+      "on": "MARA.MATNR = MAKT.MATNR"
+    }
+  ],
+  "fields": [
+    "MARA.MATNR",
+    "MARA.MTART",
+    "MAKT.SPRAS",
+    "MAKT.MAKTX"
+  ]
+}
