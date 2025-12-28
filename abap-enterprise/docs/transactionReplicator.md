@@ -118,10 +118,3 @@ It ensures everyone has the same transaction picture.
 
 ---
 
-## Next Step
-
-With transaction replication in place:
-
-- system coordination improves
-- consistency becomes stronger
-- recovery and continuation become easier
