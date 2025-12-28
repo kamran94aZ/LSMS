@@ -1,0 +1,22 @@
+{
+  "name": "MARC",
+  "description": "Material Master: Plant Data",
+  "primaryKey": ["MATNR", "WERKS"],
+  "fields": {
+    "MATNR": {
+      "element": "MATNR",
+      "type": "CHAR",
+      "length": 18
+    },
+    "WERKS": {
+      "element": "WERKS",
+      "type": "CHAR",
+      "length": 4
+    },
+    "DISPO": {
+      "element": "DISPO",
+      "type": "CHAR",
+      "length": 3
+    }
+  }
+}
