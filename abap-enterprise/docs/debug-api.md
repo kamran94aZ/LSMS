@@ -103,9 +103,3 @@ but it gives very strong power.
 
 ---
 
-## Next Step
-
-Each part of this system has a story.
-
-When the next file is ready,
-it can be explained the same way.
