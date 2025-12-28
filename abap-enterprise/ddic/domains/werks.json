@@ -1,0 +1,8 @@
+{
+  "name": "WERKS",
+  "description": "Plant",
+  "baseType": "CHAR",
+  "length": 4,
+  "lowercase": false,
+  "valueRange": null
+}
