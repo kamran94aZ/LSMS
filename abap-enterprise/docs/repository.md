@@ -142,10 +142,3 @@ It is a foundational component.
 
 ---
 
-## Next Step
-
-With a central repository in place:
-
-- transports become reliable
-- migrations become controlled
-- system structure stays clear
