@@ -169,10 +169,3 @@ It is the core runtime engine.
 
 ---
 
-## Next Step
-
-With a class runtime in place:
-
-- business logic can be modeled
-- object-oriented execution is possible
-- the platform becomes complete
