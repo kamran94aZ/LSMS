@@ -138,10 +138,3 @@ It is a controlled migration tool.
 
 ---
 
-## Next Step
-
-With transport importing in place:
-
-- systems stay aligned
-- changes move safely
-- controlled delivery is possible
