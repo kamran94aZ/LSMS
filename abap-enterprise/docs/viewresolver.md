@@ -124,10 +124,4 @@ It is a translation component.
 
 ---
 
-## Next Step
 
-With view resolution in place:
-
-- queries become possible
-- reports can be built
-- data access becomes flexible
