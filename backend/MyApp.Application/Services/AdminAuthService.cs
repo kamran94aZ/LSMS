@@ -1,4 +1,4 @@
-﻿using MyApp.Application.DTOs.Auth;
+using MyApp.Application.DTOs.Auth;
 using MyApp.Application.Interfaces.Services;
 using MyApp.Domain.Enums;
 using MyApp.Domain.Interfaces.Repositories;
@@ -40,7 +40,8 @@ public sealed class AdminAuthService : IAdminAuthService
         }
 
         user.TouchLogin();
-        _repo.Update(user);
+        _repo.UpdateLoginMeta(user.Id);
+
 
         return new LoginResult
         {
@@ -64,6 +65,11 @@ public sealed class AdminAuthService : IAdminAuthService
 
         _repo.Update(user);
         return true;
+    }
+
+    public void UpdateLoginMeta(int userId)
+    {
+        throw new NotImplementedException();
     }
 }
 
