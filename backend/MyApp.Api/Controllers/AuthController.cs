@@ -32,7 +32,7 @@ public sealed class AuthController : ControllerBase
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, result.UserId.ToString()),
-            new Claim("uid", result.UserId.ToString()), // 🔥 fallback üçün
+            new Claim("uid", result.UserId.ToString()),
             new Claim(ClaimTypes.Role, result.Role.ToString()),
             new Claim("MustChangePassword", result.MustChangePassword.ToString())
         };
