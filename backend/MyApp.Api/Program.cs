@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using MyApp.API.Filters;
@@ -14,6 +14,9 @@ using System.Security.Cryptography;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// ===============================
+// CONTROLLERS
+// ===============================
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ExceptionFilter>();
@@ -24,9 +27,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
-
 builder.Services.AddScoped<RequirePasswordChangeAttribute>();
 
+// ===============================
+// SECURITY
+// ===============================
 builder.Services.AddSingleton<IPasswordHasher, Pbkdf2PasswordHasher>();
 
 // ===============================
@@ -34,14 +39,14 @@ builder.Services.AddSingleton<IPasswordHasher, Pbkdf2PasswordHasher>();
 // ===============================
 builder.Services.AddScoped<IAdminAuthService, AdminAuthService>();
 builder.Services.AddScoped<ITestService, TestService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>(); 
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 // ===============================
 // REPOSITORIES
 // ===============================
 builder.Services.AddScoped<IAdminUserRepository, AdminUserRepository>();
 builder.Services.AddScoped<ITestRepository, TestRepository>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); 
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 // ===============================
 // DB CONTEXT
@@ -51,41 +56,89 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 );
 
 // ===============================
-// AUTH
+// CORS
+// ===============================
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("FrontendPolicy", policy =>
+    {
+        policy
+            .WithOrigins(
+                "http://127.0.0.1:5500",
+                "http://localhost:5500"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
+// ===============================
+// AUTH (COOKIE)
 // ===============================
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(opt =>
     {
         opt.Cookie.HttpOnly = true;
-        opt.Cookie.SecurePolicy = CookieSecurePolicy.None;
+
+      
         opt.Cookie.SameSite = SameSiteMode.Lax;
+        opt.Cookie.SecurePolicy = CookieSecurePolicy.None;
 
         opt.LoginPath = "/public/login.html";
         opt.AccessDeniedPath = "/public/login.html";
 
         opt.Events.OnRedirectToLogin = ctx =>
         {
-            ctx.Response.Redirect("/public/login.html");
+            ctx.Response.StatusCode = 401;
             return Task.CompletedTask;
         };
 
         opt.Events.OnRedirectToAccessDenied = ctx =>
         {
-            ctx.Response.Redirect("/public/login.html");
+            ctx.Response.StatusCode = 403;
             return Task.CompletedTask;
         };
     });
 
 builder.Services.AddAuthorization();
 
+// ===============================
+// BUILD APP
+// ===============================
 var app = builder.Build();
 
+//After delete
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var hasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
+
+    var admin = db.AdminUsers.FirstOrDefault(x => x.AdminUserName == "superadmin");
+
+    if (admin != null)
+    {
+        admin.SetPassword(hasher.Hash("Temp123!"));
+        admin.RequirePasswordChange(); 
+        db.SaveChanges();
+    }
+}
+
+
+// ===============================
+// PIPELINE
+// ===============================
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
+
+
+app.UseCors("FrontendPolicy");
 
 app.UseStaticFiles(new StaticFileOptions
 {
@@ -115,6 +168,7 @@ public sealed class Pbkdf2PasswordHasher : IPasswordHasher
     public string Hash(string password)
     {
         var salt = RandomNumberGenerator.GetBytes(SaltSize);
+
         using var derive = new Rfc2898DeriveBytes(
             password,
             salt,
@@ -148,5 +202,3 @@ public sealed class Pbkdf2PasswordHasher : IPasswordHasher
         return CryptographicOperations.FixedTimeEquals(expected, actual);
     }
 }
-
-
