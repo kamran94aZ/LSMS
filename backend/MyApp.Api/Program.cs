@@ -109,7 +109,9 @@ builder.Services.AddAuthorization();
 // ===============================
 var app = builder.Build();
 
-//After delete
+// ===============================
+// After Delete
+// ===============================
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -202,3 +204,4 @@ public sealed class Pbkdf2PasswordHasher : IPasswordHasher
         return CryptographicOperations.FixedTimeEquals(expected, actual);
     }
 }
+
