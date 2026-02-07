@@ -1,100 +1,42 @@
 "use strict";
 
-/**
- * ABAP Enterprise Server
- * ---------------------
- * Main entry point
- */
-
 const fs = require("fs");
+const path = require("path");
+const express = require("express");
 
 // ===============================
-// LOAD CONFIG
+// 1. CORE KERNEL & SERVICES
 // ===============================
 const config = require("./config/config.json");
-const dbConfig = require("./config/database.json");
-const clusterConfig = require("./config/cluster.json");
-
-// ===============================
-// CORE KERNEL
-// ===============================
 const DDIC = require("./ddic/loader");
-const DDICValidator = require("./ddic/validator");
-
 const Repository = require("./cts/repository");
 const VersionControl = require("./cts/versionControl");
-
 const Parser = require("./parser/abapParser");
 const Interpreter = require("./runtime/interpreter");
-
-const DebugManager = require("./debugger/debugManager");
-
-// ===============================
-// OOP / SQL / CTS
-// ===============================
 const ClassRegistry = require("./oop/classRegistry");
 const MetadataProvider = require("./ide/metadata");
 const SyntaxChecker = require("./ide/syntaxCheck");
-
 const runProgram = require("./ide/runProgram");
-
 const TransportManager = require("./cts/transportManager");
 const TransportMigrator = require("./transport/migrator");
+const DebugManager = require("./debugger/debugManager");
 
 // ===============================
-// CLUSTER
-// ===============================
-let clusterController = null;
-if (clusterConfig.enabled) {
-    const ClusterController = require("./cluster/controller");
-    clusterController = new ClusterController(clusterConfig.nodeId);
-    clusterController.start();
-}
-
-// ===============================
-// INIT DDIC
+// 2. INITIALIZATION
 // ===============================
 const ddic = new DDIC("./ddic");
 ddic.loadAll();
-
-const ddicValidator = new DDICValidator(ddic);
-
-// ===============================
-// INIT REPOSITORY
-// ===============================
 const repository = new Repository();
 const versionControl = new VersionControl();
-
-// ===============================
-// INIT RUNTIME
-// ===============================
 const parser = new Parser();
-const interpreter = new Interpreter({
-    debug: config.features.debugger
-});
-
-// ===============================
-// IDE SERVICES
-// ===============================
 const classRegistry = new ClassRegistry();
 const metadata = new MetadataProvider(ddic, classRegistry);
 const syntaxChecker = new SyntaxChecker(parser);
-
-// ❗ runProgram BURADA YENİDƏN YARADILMIR
-// ❗ Çünki ide/runProgram.js artıq `new RunProgram()` export edir
-
-// ===============================
-// CTS / TRANSPORT
-// ===============================
 const transportManager = new TransportManager(repository, versionControl);
-const transportMigrator = new TransportMigrator(
-    repository,
-    repository,
-    versionControl
-);
+const transportMigrator = new TransportMigrator(repository, repository, versionControl);
 
 // ===============================
-// API SERVER
+// 3. API SERVER CREATION
 // ===============================
 const createServer = require("./api/server");
 
@@ -108,14 +50,57 @@ const app = createServer({
     debugManager: DebugManager
 });
 
+
+app.use(express.json());
+
 // ===============================
-// START HTTP SERVER
+// 4. LIVE ABAP SYNC LOGIC
 // ===============================
-app.listen(config.server.port, config.server.host, () => {
+app.get("/api/live-view", async (req, res) => {
+    try {
+        // Faylın yerini mütləq ünvanla təyin edirik
+        const abapFilePath = path.resolve(__dirname, "LOCAL_ABAP", "z_demo.abap");
+        
+        console.log("Reading ABAP file from:", abapFilePath);
+
+        if (!fs.existsSync(abapFilePath)) {
+            return res.status(404).json({ 
+                success: false, 
+                error: `Fayl tapılmadı! Zəhmət olmasa bu qovluqda faylın olduğuna əmin olun: ${abapFilePath}` 
+            });
+        }
+
+        const abapSourceCode = fs.readFileSync(abapFilePath, "utf8");
+
+        // Kernel vasitəsilə icra
+        const result = await runProgram.run(abapSourceCode, {});
+        
+        res.json(result);
+    } catch (e) {
+        console.error("Kernel Error:", e);
+        res.status(500).json({ success: false, error: e.message });
+    }
+});
+
+// ===============================
+// 5. STATIC FILES & UI
+// ===============================
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// ===============================
+// 6. START SERVER
+// ===============================
+const PORT = config.server.port || 3000;
+const HOST = config.server.host || "localhost";
+
+app.listen(PORT, HOST, () => {
     console.log("========================================");
-    console.log(" ABAP ENTERPRISE SERVER STARTED ");
-    console.log(" Environment :", config.system.environment);
-    console.log(" HTTP Port   :", config.server.port);
-    console.log(" Cluster     :", clusterConfig.enabled);
+    console.log(" ABAP ENTERPRISE SERVER LIVE VIEW ");
+    console.log(` URL: http://${HOST}:${PORT}`);
+    console.log(" Monitoring: LOCAL_ABAP/z_demo.abap");
     console.log("========================================");
 });
