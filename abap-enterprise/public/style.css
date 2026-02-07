@@ -1,0 +1,103 @@
+/* style.css */
+
+/* SAP-ın standart şriftləri və təməl rəngləri */
+:root {
+    --sapShellColor: #354a5f;        /* Tünd mavi - Launchpad rəngi */
+    --sapBackgroundColor: #f7f7f7;   /* Boz-a çalan ağ - Fiori fonu */
+    --sapHighlightColor: #0854a0;    /* SAP Göyü - Düymələr üçün */
+    --sapContentColor: #ffffff;      /* Təmiz ağ - Kartlar üçün */
+    --sapBorderColor: #d8d8d8;       /* Sərhəd xətləri */
+    --sapFontFamily: "72", Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: var(--sapBackgroundColor);
+    font-family: var(--sapFontFamily);
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Fiori Shell Bar (Yuxarı menyu) */
+.sapUshellHeader {
+    background-color: var(--sapShellColor);
+    color: white;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.sapUshellHeaderTitle {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+/* App Container (Əsas hissə) */
+.sapUiContent {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+/* Fiori Object Card (Proqramın daxili kartı) */
+.sapFCard {
+    background: var(--sapContentColor);
+    width: 100%;
+    max-width: 800px;
+    border-radius: 0.5rem;
+    border: 1px solid var(--sapBorderColor);
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    padding: 1.5rem;
+}
+
+.sapFCardTitle {
+    margin: 0 0 1rem 0;
+    color: #444;
+    border-bottom: 2px solid var(--sapHighlightColor);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+/* Düymə stili */
+.sapButton {
+    background-color: var(--sapHighlightColor);
+    color: white;
+    border: 1px solid var(--sapHighlightColor);
+    padding: 0.5rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    transition: background 0.2s;
+}
+
+.sapButton:hover {
+    background-color: #0a6ed1;
+    border-color: #0a6ed1;
+}
+
+.sapButton:active {
+    background-color: #063d75;
+}
+
+/* Konsol və Çıxış sahəsi (Output Area) */
+#output-area {
+    margin-top: 2rem;
+    background-color: #f0f4f7;
+    border-left: 4px solid var(--sapHighlightColor);
+    padding: 1rem;
+    min-height: 80px;
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre-wrap;
+    color: #2c3e50;
+    font-size: 1rem;
+}
+
+/* Xəta mesajları üçün stil */
+.errorText {
+    color: #bb0000;
+    font-weight: bold;
+}
