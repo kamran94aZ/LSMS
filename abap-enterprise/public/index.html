@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>ABAP Live Monitor</title>
+</head>
+<body onload="refreshFromEclipse()">
+    <div class="sapUshellHeader">
+        <div class="sapUshellHeaderTitle">ABAP Cloud - Live Dashboard</div>
+    </div>
+
+    <div class="sapUiContent">
+        <div class="sapFCard">
+            <h2 class="sapFCardTitle">Z_DEMO Output</h2>
+            <div id="status-bar">
+                <span id="status-indicator"></span>
+                <span id="status-text">Checking connection...</span>
+            </div>
+            
+            <div id="output-area">
+                <p>Initializing backend sync...</p>
+            </div>
+
+            <div class="sapActionArea">
+                <button class="sapButton" onclick="refreshFromEclipse()">
+                    Refresh Eclipse Changes (F8)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="ui-bridge.js"></script>
+</body>
+</html>
